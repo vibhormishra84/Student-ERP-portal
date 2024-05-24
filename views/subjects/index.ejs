@@ -1,0 +1,26 @@
+<% layout('layouts/boilerplate') %>
+<%- include('../partials/navbar.ejs')%>
+<%- include('../partials/flash.ejs')%>
+<div class="row">
+    <% for(let item of subjects){%>
+        <div class="col-lg-4 mt-3">
+            <div class="card shadow mx-auto" style="width: 18rem;">
+                <img src="<%=item.img %>" class="card-img-top" alt="something">
+                <div class="card-body">
+                <h3 class="card-title"><%= item.name%></h3>
+                <h5 class="card-price">Credits: <%=item.Credits%></h5>
+                <h5 class="card-hours">Contact Hours: <%=item.ContactHours%></h5>
+                <p class="card-text"><%=item.desc%></p>
+                <a href="/subjects/<%=item._id%>" class="btn btn-primary">View Details</a>
+                <% if(currentUser && currentUser.role=='admin'){ %>
+                <form class="d-inline-block" action="/subjects/<%= item._id%>?_method=delete" method="post">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            <%}%>
+                </div>
+            </div>
+        </div>
+    <%}%>
+</div>
+</body>
+</html>
